@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Document Detection MVP</title>
+    <!-- 1. Load TFJS -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <style>
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      #canvas {
+        margin-top: 20px;
+        border: 1px solid #ccc;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Document Detection MVP</h1>
+      <input type="file" id="imageInput" accept="image/*" />
+      <button onclick="detectDocument()">Detect Document</button>
+      <br />
+      <canvas id="canvas" width="640" height="640"></canvas>
+    </div>
+
+    <script>
+      let model = null;
+
+      // 2. Load the model when the page loads
+      async function loadModel() {
+        try {
+          model = await tf.loadGraphModel("./best_web_model/model.json");
+          console.log("Model loaded successfully");
+        } catch (error) {
+          console.error("Error loading model:", error);
+        }
+      }
+
+      // 3. Perform detection
+      async function detectDocument() {
+        console.log("Starting document detection...");
+        if (!model) {
+          console.error("Model not loaded");
+          alert("Model not loaded yet. Please wait.");
+          return;
+        }
+
+        const imageInput = document.getElementById("imageInput");
+        const file = imageInput.files[0];
+
+        if (!file) {
+          console.error("No file selected");
+          alert("Please select an image first");
+          return;
+        }
+
+        console.log("Processing image:", file.name);
+        const img = new Image();
+        img.src = URL.createObjectURL(file);
+
+        img.onload = async () => {
+          const canvas = document.getElementById("canvas");
+          const ctx = canvas.getContext("2d");
+
+          // Store original image for redrawing
+          window.originalImage = img;
+
+          // Adjust canvas size to match image aspect ratio
+          const aspectRatio = img.width / img.height;
+          if (aspectRatio > 1) {
+            canvas.width = 640;
+            canvas.height = 640 / aspectRatio;
+          } else {
+            canvas.height = 640;
+            canvas.width = 640 * aspectRatio;
+          }
+
+          // Clear and draw the original image
+          redrawImage();
+
+          // Continue with detection...
+          const [modelWidth, modelHeight] = [640, 640];
+          const [input, xRatio, yRatio] = preprocess(
+            img,
+            modelWidth,
+            modelHeight
+          );
+
+          // Run inference
+          console.log("Running model inference...");
+          const res = await model.predict(input);
+          console.log("Raw model output shape:", res.shape);
+
+          const transRes = res.transpose([0, 2, 1]);
+          console.log("Transposed output shape:", transRes.shape);
+
+          // Process boxes
+          console.log("Processing bounding boxes...");
+          const boxes = tf.tidy(() => {
+            const w = transRes.slice([0, 0, 2], [-1, -1, 1]); // width
+            const h = transRes.slice([0, 0, 3], [-1, -1, 1]); // height
+            const x1 = tf.sub(
+              transRes.slice([0, 0, 0], [-1, -1, 1]),
+              tf.div(w, 2)
+            ); // x1
+            const y1 = tf.sub(
+              transRes.slice([0, 0, 1], [-1, -1, 1]),
+              tf.div(h, 2)
+            ); // y1
+            return tf
+              .concat(
+                [
+                  y1,
+                  x1,
+                  tf.add(y1, h), //y2
+                  tf.add(x1, w), //x2
+                ],
+                2
+              )
+              .squeeze();
+          });
+          console.log("Boxes tensor shape:", boxes.shape);
+
+          // Get scores
+          console.log("Processing scores...");
+          const [scores, classes] = tf.tidy(() => {
+            const rawScores = transRes.slice([0, 0, 4], [-1, -1, 1]).squeeze(0);
+            return [rawScores.max(1), rawScores.argMax(1)];
+          });
+          console.log("Scores tensor shape:", scores.shape);
+
+          // Apply NMS
+          console.log("Applying NMS...");
+          const nms = await tf.image.nonMaxSuppressionAsync(
+            boxes,
+            scores,
+            500,
+            0.45,
+            0.2
+          );
+
+          // Get data from tensors
+          const boxes_data = boxes.gather(nms, 0).dataSync();
+          const scores_data = scores.gather(nms, 0).dataSync();
+          console.log("Final detections:", scores_data.length);
+          console.log("Detection scores:", Array.from(scores_data));
+
+          // Store detection data globally
+          window.lastDetection = {
+            boxes: boxes_data,
+            scores: scores_data,
+            ratios: [xRatio, yRatio],
+          };
+
+          // Draw boxes
+          console.log("Drawing detections...");
+          drawDetections(boxes_data, scores_data, ctx, [xRatio, yRatio]);
+          console.log({
+            boxes: boxes_data,
+            scores: scores_data,
+          });
+
+          // Cleanup
+          tf.dispose([input, res, transRes, boxes, scores, nms]);
+        };
+      }
+
+      function redrawImage() {
+        const canvas = document.getElementById("canvas");
+        const ctx = canvas.getContext("2d");
+
+        // Clear canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Draw original image
+        if (window.originalImage) {
+          ctx.drawImage(
+            window.originalImage,
+            0,
+            0,
+            canvas.width,
+            canvas.height
+          );
+        }
+
+        // Redraw detection boxes if they exist
+        if (window.lastDetection) {
+          drawDetections(
+            window.lastDetection.boxes,
+            window.lastDetection.scores,
+            ctx,
+            window.lastDetection.ratios
+          );
+        }
+      }
+
+      function preprocess(source, modelWidth, modelHeight) {
+        console.log("Preprocessing image...");
+        let xRatio, yRatio;
+
+        const input = tf.tidy(() => {
+          const img = tf.browser.fromPixels(source);
+          console.log("Original image tensor shape:", img.shape);
+
+          const [h, w] = img.shape.slice(0, 2);
+          const maxSize = Math.max(w, h);
+          console.log("Padding to square:", maxSize, "x", maxSize);
+
+          const imgPadded = img.pad([
+            [0, maxSize - h],
+            [0, maxSize - w],
+            [0, 0],
+          ]);
+
+          xRatio = maxSize / w;
+          yRatio = maxSize / h;
+
+          const finalInput = tf.image
+            .resizeBilinear(imgPadded, [modelWidth, modelHeight])
+            .div(255.0)
+            .expandDims(0);
+          console.log("Final input tensor shape:", finalInput.shape);
+          return finalInput;
+        });
+
+        return [input, xRatio, yRatio];
+      }
+
+      function drawDetections(boxes, scores, ctx, ratios) {
+        console.log("Drawing detections:", {
+          numBoxes: boxes.length / 4,
+          boxes: boxes,
+          scores: scores,
+          ratios: ratios,
+        });
+
+        const [xRatio, yRatio] = ratios;
+        const canvasWidth = ctx.canvas.width;
+        const canvasHeight = ctx.canvas.height;
+
+        // Clear any previous drawings but keep the image
+        ctx.strokeStyle = "#FF0000";
+        ctx.lineWidth = 4;
+        ctx.font = "bold 18px Arial";
+        ctx.fillStyle = "#FF0000";
+
+        for (let i = 0; i < boxes.length; i += 4) {
+          // Get coordinates
+          const y1 = boxes[i];
+          const x1 = boxes[i + 1];
+          const y2 = boxes[i + 2];
+          const x2 = boxes[i + 3];
+
+          const confidence = scores[i / 4];
+
+          // Convert normalized coordinates to canvas coordinates
+          const startX = x1 * canvasWidth;
+          const startY = y1 * canvasHeight;
+          const width = (x2 - x1) * canvasWidth;
+          const height = (y2 - y1) * canvasHeight;
+
+          console.log("Drawing box:", {
+            startX,
+            startY,
+            width,
+            height,
+            confidence,
+          });
+
+          // Draw the box
+          ctx.beginPath();
+          ctx.rect(startX, startY, width, height);
+          ctx.stroke();
+
+          // Draw confidence score
+          const score = (confidence * 100).toFixed(1);
+          const text = `${score}%`;
+          const textWidth = ctx.measureText(text).width;
+          ctx.fillText(text, startX + 5, startY - 5);
+        }
+      }
+
+      // 10. Load model on startup
+      loadModel();
+
+      // Add button to HTML for redrawing
+      document.querySelector(".container").insertAdjacentHTML(
+        "beforeend",
+        `
+        <br>
+        <button onclick="redrawImage()">Redraw Detection</button>
+      `
+      );
+    </script>
+  </body>
+</html>
