@@ -181,7 +181,7 @@ Las siguientes gráficas muestran las métricas de rendimiento obtenidas durante
 | Podemos observar que la curva F1 muestra que el modelo logra un buen equilibrio entre precisión y recall, alcanzando un valor máximo de 0.92. Esto indica un buen rendimiento general. | En la curva de precisión se muestra que el modelo es altamente confiable, logrando hasta un 100% de precisión en niveles altos de confianza. |
 | **Curva PR**                                | **Curva de Recall**                                  |
 | ![Curva PR](detect/docuvision/PR_curve.png) | ![Curva de Recall](detect/docuvision/R_curve.png)    |
-| La curva PR refleja un excelente balance entre precisión y recall, con un área bajo la curva (mAP) de 0.922, ideal para problemas con datos desbalanceados. | La curva de recall muestra que el modelo identifica correctamente el 94% de los casos positivos, siendo muy efectivo incluso con umbrales bajos de confianza. |
+| La curva PR demuestra un equilibrio sobresaliente entre precisión y recall, con un área bajo la curva (mAP) de 0.922, lo que indica un excelente rendimiento en la clasificación general del modelo. | La curva de recall muestra que el modelo identifica correctamente el 94% de los casos positivos, siendo muy efectivo incluso con umbrales bajos de confianza. |
 
 
 
