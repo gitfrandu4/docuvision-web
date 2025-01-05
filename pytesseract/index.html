@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>OCR con Tesseract.js</title>
+  <!-- Bootstrap para estilos bonitos -->
+  <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+  />
+  <!-- Incluimos la librería Tesseract.js desde unpkg -->
+  <script src="https://unpkg.com/tesseract.js@4.0.2/dist/tesseract.min.js"></script>
+</head>
+<body>
+  <div class="container mt-5">
+    <h1 class="text-center mb-4">OCR con Tesseract.js</h1>
+
+    <div class="card">
+      <div class="card-body">
+        <!-- Sección para seleccionar archivo -->
+        <div class="form-group">
+          <label for="fileInput">Selecciona una imagen (documento) para extraer texto:</label>
+          <input
+            type="file"
+            class="form-control-file"
+            id="fileInput"
+            accept="image/*"
+          />
+        </div>
+
+        <!-- Vista previa de la imagen -->
+        <div class="text-center my-3">
+          <img
+            id="previewImage"
+            src=""
+            alt="Vista previa"
+            style="max-width: 100%; max-height: 300px; display: none;"
+          />
+        </div>
+
+        <!-- Botón para procesar la imagen con Tesseract -->
+        <div class="text-center">
+          <button id="processButton" class="btn btn-primary" disabled>
+            Procesar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección de resultados -->
+    <div class="card mt-4">
+      <div class="card-body">
+        <h5 class="card-title">Resultado OCR:</h5>
+        <div id="resultText" class="border p-3" style="min-height: 100px;">
+          <!-- Aquí se mostrará el texto extraído -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Script principal de la aplicación -->
+  <script src="jsTesseract.js"></script>
+  <!-- Script de Bootstrap (opcional, solo si necesitas su JS) -->
+  <script
+    src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+    crossorigin="anonymous"
+  ></script>
+</body>
+</html>
