@@ -2,6 +2,35 @@
 
 ![Imagen carátula del proyecto](path/to/cover/image.png)
 
+## Índice
+
+- [Aplicación Web de Escaneo de Documentos con Técnicas de Visión por Computador](#aplicación-web-de-escaneo-de-documentos-con-técnicas-de-visión-por-computador)
+  - [Índice](#índice)
+  - [Autores](#autores)
+  - [Motivación y Argumentación](#motivación-y-argumentación)
+  - [Objetivo de la Propuesta](#objetivo-de-la-propuesta)
+    - [Objetivo Principal](#objetivo-principal)
+    - [Objetivos Específicos](#objetivos-específicos)
+  - [Descripción Técnica](#descripción-técnica)
+    - [Arquitectura del Sistema](#arquitectura-del-sistema)
+    - [Tecnologías Implementadas](#tecnologías-implementadas)
+  - [Fuentes y Tecnologías Utilizadas](#fuentes-y-tecnologías-utilizadas)
+    - [Software](#software)
+    - [Hardware](#hardware)
+    - [Bibliotecas y Dependencias](#bibliotecas-y-dependencias)
+  - [Resultados](#resultados)
+    - [Entrenamiento del Modelo](#entrenamiento-del-modelo)
+    - [Resultados del Entrenamiento](#resultados-del-entrenamiento)
+    - [Ejemplo de Inferencia](#ejemplo-de-inferencia)
+  - [Conclusiones y Propuestas de Ampliación](#conclusiones-y-propuestas-de-ampliación)
+    - [Conclusiones](#conclusiones)
+    - [Propuestas de Ampliación](#propuestas-de-ampliación)
+  - [Herramientas Deseadas](#herramientas-deseadas)
+  - [Enlaces](#enlaces)
+  - [Créditos](#créditos)
+  - [Anexos](#anexos)
+    - [Diario de Reuniones](#diario-de-reuniones)
+
 ## Autores
 
 - Marcos Vázquez Tascón
@@ -52,10 +81,10 @@ El proyecto se estructura en tres componentes principales:
 
 ### Tecnologías Implementadas
 
-- OpenCV.js para procesamiento de imágenes
-- TensorFlow.js para la ejecución del modelo YOLO
-- Tesseract.js para OCR
-- JavaScript/HTML5 para la interfaz web
+- `OpenCV.js` para procesamiento de imágenes
+- `TensorFlow.js` para la ejecución del modelo YOLO
+- `Tesseract.js` para OCR
+- `JavaScript/HTML5` para la interfaz web
 
 ## Fuentes y Tecnologías Utilizadas
 
@@ -75,7 +104,65 @@ El proyecto se estructura en tres componentes principales:
 
 ## Resultados
 
-[Describir aquí los resultados obtenidos]
+### Entrenamiento del Modelo
+
+El entrenamiento del modelo se realizó utilizando YOLOv11n como base, con los siguientes parámetros:
+
+- 100 épocas de entrenamiento
+- Tamaño de imagen: 640x640
+- Dataset: [Four Corners Detection](https://universe.roboflow.com/tmayolov8/four-corners-detection)
+
+Especificaciones del dataset:
+
+- Resolución de imágenes: 640x640 píxeles
+- Canales: 3 (RGB)
+- Tipo de datos: uint8
+- Tamaño medio por imagen: ~118KB
+
+```python
+from ultralytics import YOLO
+
+model = YOLO("/content/drive/MyDrive/yolo11n.pt")
+
+train_results = model.train(
+    data="data.yaml",
+    epochs=100,
+    imgsz=640,
+    name='docuvision'
+)
+
+metrics = model.val()
+```
+
+Los resultados de la validación del modelo muestran un muy buen rendimiento:
+
+```
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95)
+                   all        747       1021      0.936      0.897      0.921      0.862
+```
+
+El modelo fue evaluado sobre un conjunto de validación de 747 imágenes que contenían 1021 instancias de documentos, obteniendo métricas muy robustas:
+
+- Precisión (P): 0.936 - Indica que el 93.6% de las detecciones realizadas son correctas
+- Recall (R): 0.897 - El modelo es capaz de detectar el 89.7% de todos los documentos presentes
+- mAP50: 0.921 - La precisión media con un IoU (Intersection over Union) del 50% es del 92.1%
+- mAP50-95: 0.862 - La precisión media sobre múltiples umbrales de IoU es del 86.2%, lo que indica que el modelo es muy preciso en la mayoría de las detecciones.
+
+Estos resultados demuestran que el modelo es altamente preciso en la detección de documentos, con un equilibrio óptimo entre precisión y recall.
+
+### Resultados del Entrenamiento
+
+Las siguientes gráficas muestran las métricas de rendimiento obtenidas durante el entrenamiento:
+
+| Curva F1                          | Curva de Precisión                         |
+| --------------------------------- | ------------------------------------------ |
+| ![Curva F1](detect/docuvision/F1_curve.png) | ![Curva de Precisión](detect/docuvision/P_curve.png) |
+| **Curva PR**                      | **Curva de Recall**                        |
+| ![Curva PR](detect/docuvision/PR_curve.png) | ![Curva de Recall](detect/docuvision/R_curve.png)    |
+
+### Ejemplo de Inferencia
+
+![Ejemplo de detección de documento](assets/inference_example.png)
 
 ## Conclusiones y Propuestas de Ampliación
 
@@ -95,10 +182,11 @@ El proyecto se estructura en tres componentes principales:
 
 - [Enlace al código fuente](url_repositorio)
 - [Vídeo de demostración](url_video)
+- [Dataset de entrenamiento](https://universe.roboflow.com/tmayolov8/four-corners-detection)
 
 ## Créditos
 
-[Listar aquí los créditos de materiales no originales del grupo]
+- Dataset "Four Corners Detection" de Roboflow, utilizado para el entrenamiento del modelo de detección de documentos (material no original del grupo)
 
 ## Anexos
 
