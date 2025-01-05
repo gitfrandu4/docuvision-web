@@ -74,6 +74,25 @@ El proyecto se estructura en tres componentes principales:
    - Modelo entrenado con dataset específico de documentos
    - Adaptación para funcionamiento en navegador
 
+   Durante el proceso de exportación del modelo YOLOv11n a TensorFlow.js, nos encontramos con un desafío técnico interesante: la diferencia en el formato de salida entre la inferencia en `Python` y `JavaScript`. Mientras que en `Python` (usando Ultralytics) el modelo devuelve directamente las coordenadas de los bounding boxes procesadas, en `TensorFlow.js` el modelo exportado produce un tensor con forma `[1, 5, 8400]`. Este tensor representa:
+
+   - 8400 posibles detecciones
+   - 5 canales de información por cada detección (x, y, ancho, alto, confianza)
+
+   Esta diferencia se debe a que TensorFlow.js prioriza la eficiencia y flexibilidad, permitiendo que el post-procesamiento se realice en el lado del cliente según las necesidades específicas de la aplicación. Esta decisión de diseño nos llevó buscar una solución que implemente esta capa adicional de procesamiento en `JavaScript` para interpretar y visualizar las detecciones correctamente.
+
+   Para la exportación del modelo a TensorFlow.js utilizamos el siguiente código:
+
+   ```python
+   from ultralytics import YOLO
+
+   # Load the YOLO11 model
+   model = YOLO("/content/detect/docuvision/weights/best.pt")
+
+   # Export the model to TF.js format
+   model.export(format="tfjs", simplify=True)  # creates '/best_web_model'
+   ```
+
 3. **Motor de OCR**
    - Integración de Tesseract.js
    - Capacidades de extracción de texto
@@ -106,11 +125,11 @@ El proyecto se estructura en tres componentes principales:
 
 ### Entrenamiento del Modelo
 
-El entrenamiento del modelo se realizó utilizando YOLOv11n como base, con los siguientes parámetros:
+El entrenamiento del modelo se realizó utilizando YOLOv8n como base, con los siguientes parámetros:
 
 - 100 épocas de entrenamiento
 - Tamaño de imagen: 640x640
-- Dataset: [Four Corners Detection](https://universe.roboflow.com/tmayolov8/four-corners-detection)
+- Dataset: Four Corners Detection
 
 Especificaciones del dataset:
 
@@ -118,6 +137,8 @@ Especificaciones del dataset:
 - Canales: 3 (RGB)
 - Tipo de datos: uint8
 - Tamaño medio por imagen: ~118KB
+
+El proceso de exportación del modelo a TensorFlow.js requirió consideraciones especiales para su uso en el navegador. El modelo exportado produce tensores que requieren post-procesamiento adicional para convertir las predicciones en coordenadas utilizables. Esta característica, aunque inicialmente desafiante, nos permitió optimizar el rendimiento y personalizar el procesamiento según las necesidades específicas de nuestra aplicación web.
 
 ```python
 from ultralytics import YOLO
@@ -154,10 +175,10 @@ Estos resultados demuestran que el modelo es altamente preciso en la detección 
 
 Las siguientes gráficas muestran las métricas de rendimiento obtenidas durante el entrenamiento:
 
-| Curva F1                          | Curva de Precisión                         |
-| --------------------------------- | ------------------------------------------ |
+| Curva F1                                    | Curva de Precisión                                   |
+| ------------------------------------------- | ---------------------------------------------------- |
 | ![Curva F1](detect/docuvision/F1_curve.png) | ![Curva de Precisión](detect/docuvision/P_curve.png) |
-| **Curva PR**                      | **Curva de Recall**                        |
+| **Curva PR**                                | **Curva de Recall**                                  |
 | ![Curva PR](detect/docuvision/PR_curve.png) | ![Curva de Recall](detect/docuvision/R_curve.png)    |
 
 ### Ejemplo de Inferencia
@@ -180,9 +201,12 @@ Las siguientes gráficas muestran las métricas de rendimiento obtenidas durante
 
 ## Enlaces
 
-- [Enlace al código fuente](url_repositorio)
-- [Vídeo de demostración](url_video)
+- [Enlace al código fuente](url_repositorio) ==TODO==
+- [Vídeo de demostración](url_video) ==TODO==
 - [Dataset de entrenamiento](https://universe.roboflow.com/tmayolov8/four-corners-detection)
+- [Documentación oficial de Ultralytics sobre exportación de modelos](https://docs.ultralytics.com/modes/export/)
+- [Discusión sobre diferencias en pre/post-procesamiento de YOLOv8](https://github.com/ultralytics/ultralytics/issues/2451)
+- [Análisis del post-procesamiento en TensorFlow.js](https://github.com/ultralytics/ultralytics/issues/13413)
 
 ## Créditos
 
