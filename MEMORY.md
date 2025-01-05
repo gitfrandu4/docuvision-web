@@ -1,6 +1,6 @@
 # Aplicación Web de Escaneo de Documentos con Técnicas de Visión por Computador
 
-![Imagen carátula del proyecto](path/to/cover/image.png)
+![Imagen carátula del proyecto](assets/cover.png)
 
 ## Índice
 
