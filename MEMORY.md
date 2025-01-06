@@ -60,7 +60,7 @@ Desarrollar una aplicación web que permita el escaneo y procesamiento automáti
 
 ### Arquitectura del Sistema
 
-El proyecto se estructura en tres componentes principales:
+El proyecto se estructura en cuatro componentes principales:
 
 1. **Módulo de Mejora de Imágenes**
 
@@ -96,9 +96,23 @@ El proyecto se estructura en tres componentes principales:
    ```
 
 3. **Motor de OCR**
+
    - Integración de Tesseract.js
    - Capacidades de extracción de texto
    - Optimización para documentos procesados
+
+4. **Sistema de Despliegue Continuo**
+
+   - Implementación de GitHub Actions para despliegue automático
+   - Configuración de GitHub Pages como plataforma de hosting
+   - Automatización del proceso de build y deploy
+
+   El proyecto utiliza GitHub Actions para automatizar el despliegue a GitHub Pages cada vez que se realiza un push a la rama `master`. El workflow de despliegue:
+
+   - Configura Node.js con caché de npm para optimizar el proceso
+   - Instala las dependencias usando `npm ci`
+   - Construye el proyecto
+   - Despliega los archivos generados a la rama `gh-pages`
 
 ### Tecnologías Implementadas
 
@@ -107,6 +121,8 @@ El proyecto se estructura en tres componentes principales:
 - `Tesseract.js` para OCR
 - `JavaScript/HTML5` para la interfaz web
 - `WebGL` como backend para la aceleración de inferencias
+- `GitHub Actions` para integración y despliegue continuo
+- `GitHub Pages` como plataforma de hosting
 
 ## Fuentes y Tecnologías Utilizadas
 
@@ -115,6 +131,8 @@ El proyecto se estructura en tres componentes principales:
 - Visual Studio Code como IDE principal
 - Google Colab para el entrenamiento del modelo
 - Node.js y Yarn para la gestión de dependencias del frontend
+- Git y GitHub para control de versiones y despliegue automático
+- Vite como herramienta de build
 
 ### Hardware
 
@@ -123,8 +141,9 @@ El proyecto se estructura en tres componentes principales:
 ### Bibliotecas y Dependencias
 
 - TensorFlow.js con backend WebGL para inferencia en el navegador
-- YOLOv11n (13MB) convertido a formato TensorFlow.js
-- Implementación base del post-procesamiento de tensores basada en el repositorio `yolov8-tfjs`
+- YOLOv11n convertido a formato TensorFlow.js
+- Implementación base del post-procesamiento de tensores basada en yolov8-tfjs
+- gh-pages para el despliegue automático a GitHub Pages
 
 ## Resultados
 
@@ -216,6 +235,9 @@ Las siguientes gráficas muestran las métricas de rendimiento obtenidas durante
 - [Análisis del post-procesamiento en TensorFlow.js](https://github.com/ultralytics/ultralytics/issues/13413)
 - [Guía de integración de TensorFlow.js con YOLO (Español)](https://docs.ultralytics.com/es/integrations/tfjs/)
 - [Repositorio yolov8-tfjs](https://github.com/Hyuto/yolov8-tfjs) - Implementación base para el post-procesamiento de tensores YOLOv8 en TensorFlow.js
+- [Documentación de GitHub Pages](https://docs.github.com/en/pages)
+- [Guía de Despliegue Estático de Vite](https://vitejs.dev/guide/static-deploy.html)
+- [Documentación de GitHub Actions](https://docs.github.com/en/actions)
 
 ## Créditos
 
