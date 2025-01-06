@@ -83,6 +83,23 @@ El proyecto se estructura en cuatro componentes principales:
 
    Para resolver este desafío, nos basamos en el trabajo de código abierto de [Wahyu Setianto](https://github.com/Hyuto), quien desarrolló una implementación eficiente del post-procesamiento de tensores para YOLOv8 en TensorFlow.js. Su solución nos permitió manejar correctamente la salida del modelo y visualizar las detecciones en el navegador.
 
+   Además, nos enfrentamos a otro desafío técnico importante relacionado con el manejo de imágenes de diferentes dimensiones. El modelo YOLO está entrenado para trabajar con entradas de 640x640 píxeles, pero las fotografías tomadas con dispositivos móviles suelen tener dimensiones diferentes (por ejemplo, 1280x720 o 1920x1080). Esto requirió implementar un proceso de transformación de coordenadas que consta de los siguientes pasos:
+
+   1. **Preprocesamiento de la imagen**:
+
+      - Cálculo del lado máximo entre el ancho y alto de la imagen original
+      - Aplicación de padding para obtener una imagen cuadrada
+      - Reescalado final a 640x640 píxeles
+
+   2. **Transformación de coordenadas post-detección**:
+      - Las coordenadas devueltas por el modelo ([y₁, x₁, y₂, x₂]) están referidas a la imagen 640x640
+      - Se calcula el factor de escala: `scale = modelWidth / maxSize`
+      - Se revierten las coordenadas al espacio original mediante:
+        - Eliminación del escalado: `coord_padded = coord_640 / scale`
+        - Ajuste a dimensiones reales: `coord_real = max(0, min(sourceDimension, coord_padded))`
+
+   La implementación final incluye un manejo robusto de casos especiales, validaciones de dimensiones y soporte tanto para imágenes estáticas como para video en tiempo real. El código completo de la función de manejo de detección está disponible en el repositorio.
+
    Para la exportación del modelo a TensorFlow.js utilizamos el siguiente código:
 
    ```python
