@@ -128,18 +128,44 @@ function scanDocument(tempCanvas) {
         // 5.9: Intentar encontrar el mejor contorno
         let bestApprox = null;
         const imgArea = resized.rows * resized.cols;
+        
         for (let i = 0; i < Math.min(5, contourAreas.length); i++) {
             let cnt = contours.get(contourAreas[i].index);
             let peri = cv.arcLength(cnt, true);
             let approx = new cv.Mat();
             cv.approxPolyDP(cnt, approx, 0.02 * peri, true);
 
-            // Si el contorno tiene 4 vértices y un área decente, lo tomamos
+            // Draw all considered contours in red
+            // cv.drawContours(debugMat, new cv.MatVector([cnt]), -1, new cv.Scalar(255, 0, 0), 2);
+
             if (approx.rows === 4) {
                 let area = cv.contourArea(approx);
-                if (area >= imgArea * 0.25) {
-                    bestApprox = approx;
-                    break;
+                if (area >= imgArea * 0.25) { // Minimum area check
+                    // Extract points for angle validation
+                    let points = [];
+                    for (let j = 0; j < 4; j++) {
+                        points.push({
+                            x: approx.data32S[j * 2],
+                            y: approx.data32S[j * 2 + 1]
+                        });
+                    }
+                    points = sortPoints(points);
+
+                    // Validate angles
+                    let angles = [
+                        angle(points[0], points[1], points[2]),
+                        angle(points[1], points[2], points[3]),
+                        angle(points[2], points[3], points[0]),
+                        angle(points[3], points[0], points[1])
+                    ];
+                    let angleRange = Math.max(...angles) - Math.min(...angles);
+
+                    if (angleRange <= 50) { // Maximum angle range check
+                        bestApprox = approx;
+                        // Draw valid contour in green
+                        // cv.drawContours(debugMat, new cv.MatVector([approx]), -1, new cv.Scalar(0, 255, 0), 3);
+                        break;
+                    }
                 }
             }
             approx.delete();
