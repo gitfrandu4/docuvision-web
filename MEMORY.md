@@ -79,7 +79,9 @@ El proyecto se estructura en tres componentes principales:
    - 8400 posibles detecciones
    - 5 canales de información por cada detección (x, y, ancho, alto, confianza)
 
-   Esta diferencia se debe a que TensorFlow.js prioriza la eficiencia y flexibilidad, permitiendo que el post-procesamiento se realice en el lado del cliente según las necesidades específicas de la aplicación. Esta decisión de diseño nos llevó buscar una solución que implemente esta capa adicional de procesamiento en `JavaScript` para interpretar y visualizar las detecciones correctamente.
+   Esta diferencia se debe a que TensorFlow.js prioriza la eficiencia y flexibilidad, permitiendo que el post-procesamiento se realice en el lado del cliente según las necesidades específicas de la aplicación. Esta decisión de diseño nos llevó a buscar una solución que implemente esta capa adicional de procesamiento en `JavaScript` para interpretar y visualizar las detecciones correctamente.
+
+   Para resolver este desafío, nos basamos en el trabajo de código abierto de [Wahyu Setianto](https://github.com/Hyuto), quien desarrolló una implementación eficiente del post-procesamiento de tensores para YOLOv8 en TensorFlow.js. Su solución nos permitió manejar correctamente la salida del modelo y visualizar las detecciones en el navegador.
 
    Para la exportación del modelo a TensorFlow.js utilizamos el siguiente código:
 
@@ -104,13 +106,15 @@ El proyecto se estructura en tres componentes principales:
 - `TensorFlow.js` para la ejecución del modelo YOLO
 - `Tesseract.js` para OCR
 - `JavaScript/HTML5` para la interfaz web
+- `WebGL` como backend para la aceleración de inferencias
 
 ## Fuentes y Tecnologías Utilizadas
 
 ### Software
 
-- [Software 1]
-- [Software 2]
+- Visual Studio Code como IDE principal
+- Google Colab para el entrenamiento del modelo
+- Node.js y Yarn para la gestión de dependencias del frontend
 
 ### Hardware
 
@@ -118,8 +122,9 @@ El proyecto se estructura en tres componentes principales:
 
 ### Bibliotecas y Dependencias
 
-- [Biblioteca 1]
-- [Biblioteca 2]
+- TensorFlow.js con backend WebGL para inferencia en el navegador
+- YOLOv11n (13MB) convertido a formato TensorFlow.js
+- Implementación base del post-procesamiento de tensores basada en el repositorio `yolov8-tfjs`
 
 ## Resultados
 
@@ -175,16 +180,13 @@ Estos resultados demuestran que el modelo es altamente preciso en la detección 
 
 Las siguientes gráficas muestran las métricas de rendimiento obtenidas durante el entrenamiento:
 
-| **Curva F1**                                | **Curva de Precisión**                               |
-| ------------------------------------------- | ---------------------------------------------------- |
-| ![Curva F1](detect/docuvision/F1_curve.png) | ![Curva de Precisión](detect/docuvision/P_curve.png) |
-| Podemos observar que la curva F1 muestra que el modelo logra un buen equilibrio entre precisión y recall, alcanzando un valor máximo de 0.92. Esto indica un buen rendimiento general. | En la curva de precisión se muestra que el modelo es altamente confiable, logrando hasta un 100% de precisión en niveles altos de confianza. |
-| **Curva PR**                                | **Curva de Recall**                                  |
-| ![Curva PR](detect/docuvision/PR_curve.png) | ![Curva de Recall](detect/docuvision/R_curve.png)    |
+| **Curva F1**                                                                                                                                                                                         | **Curva de Precisión**                                                                                                                                        |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ![Curva F1](detect/docuvision/F1_curve.png)                                                                                                                                                          | ![Curva de Precisión](detect/docuvision/P_curve.png)                                                                                                          |
+| Podemos observar que la curva F1 muestra que el modelo logra un buen equilibrio entre precisión y recall, alcanzando un valor máximo de 0.92. Esto indica un buen rendimiento general.               | En la curva de precisión se muestra que el modelo es altamente confiable, logrando hasta un 100% de precisión en niveles altos de confianza.                  |
+| **Curva PR**                                                                                                                                                                                         | **Curva de Recall**                                                                                                                                           |
+| ![Curva PR](detect/docuvision/PR_curve.png)                                                                                                                                                          | ![Curva de Recall](detect/docuvision/R_curve.png)                                                                                                             |
 | La curva PR demuestra un equilibrio sobresaliente entre precisión y recall, con un área bajo la curva (mAP) de 0.922, lo que indica un excelente rendimiento en la clasificación general del modelo. | La curva de recall muestra que el modelo identifica correctamente el 94% de los casos positivos, siendo muy efectivo incluso con umbrales bajos de confianza. |
-
-
-
 
 ### Ejemplo de Inferencia
 
@@ -212,10 +214,13 @@ Las siguientes gráficas muestran las métricas de rendimiento obtenidas durante
 - [Documentación oficial de Ultralytics sobre exportación de modelos](https://docs.ultralytics.com/modes/export/)
 - [Discusión sobre diferencias en pre/post-procesamiento de YOLOv8](https://github.com/ultralytics/ultralytics/issues/2451)
 - [Análisis del post-procesamiento en TensorFlow.js](https://github.com/ultralytics/ultralytics/issues/13413)
+- [Guía de integración de TensorFlow.js con YOLO (Español)](https://docs.ultralytics.com/es/integrations/tfjs/)
+- [Repositorio yolov8-tfjs](https://github.com/Hyuto/yolov8-tfjs) - Implementación base para el post-procesamiento de tensores YOLOv8 en TensorFlow.js
 
 ## Créditos
 
 - Dataset "Four Corners Detection" de Roboflow, utilizado para el entrenamiento del modelo de detección de documentos (material no original del grupo)
+- Implementación base del post-procesamiento de tensores YOLOv8 en TensorFlow.js por Wahyu Setianto
 
 ## Anexos
 
