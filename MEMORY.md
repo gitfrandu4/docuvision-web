@@ -227,8 +227,8 @@ Las siguientes gráficas muestran las métricas de rendimiento obtenidas durante
 
 ## Enlaces
 
-- [Enlace al código fuente](url_repositorio) ==TODO==
-- [Vídeo de demostración](url_video) ==TODO==
+- [Enlace al código fuente](https://github.com/gitfrandu4/docu-scan)
+- [Aplicación desplegada](https://gitfrandu4.github.io/docu-scan/)
 - [Dataset de entrenamiento](https://universe.roboflow.com/tmayolov8/four-corners-detection)
 - [Documentación oficial de Ultralytics sobre exportación de modelos](https://docs.ultralytics.com/modes/export/)
 - [Discusión sobre diferencias en pre/post-procesamiento de YOLOv8](https://github.com/ultralytics/ultralytics/issues/2451)
