@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- 1: Codificación de caracteres -->
+    <meta charset="UTF-8" />
+    
+    <!-- 2: Título de la página -->
+    <title>Escáner de Documento con OpenCV.js</title>
+    
+    <!-- 3: Cargamos Bootstrap para estilos -->
+    <link 
+        rel="stylesheet" 
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" 
+    />
+</head>
+<body>
+    <!-- 4: Contenedor principal -->
+    <div class="container mt-5">
+        <!-- 5: Título -->
+        <h1 class="text-center mb-4">Escanea tu Documento</h1>
+
+        <!-- 6: Card para subir y previsualizar la imagen -->
+        <div class="card">
+            <div class="card-body">
+                <!-- 7: Campo para seleccionar la imagen -->
+                <div class="form-group">
+                    <label for="fileInput">Selecciona una imagen:</label>
+                    <input 
+                        type="file" 
+                        class="form-control-file" 
+                        id="fileInput" 
+                        accept="image/*"
+                    />
+                </div>
+
+                <!-- 8: Vista previa de la imagen original -->
+                <div class="text-center my-3">
+                    <img
+                        id="previewImage"
+                        src=""
+                        alt="Vista previa"
+                        style="max-width: 100%; max-height: 300px; display: none;"
+                    />
+                </div>
+
+                <!-- 9: Botón para aplicar correcciones con OpenCV -->
+                <div class="text-center">
+                    <button 
+                        id="processButton" 
+                        class="btn btn-primary" 
+                        disabled
+                    >
+                        Aplicar correcciones
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 10: Sección para mostrar la imagen procesada -->
+        <div class="card mt-4">
+            <div class="card-body">
+                <h5 class="card-title">Imagen procesada:</h5>
+                <!-- 11: Canvas donde dibujaremos el resultado final -->
+                <canvas 
+                    id="processedCanvas" 
+                    class="border p-3" 
+                    style="width: 100%; max-width: 100%; display: none;"
+                ></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- 12: Cargar OpenCV de forma asíncrona -->
+    <script 
+        async 
+        src="https://docs.opencv.org/4.x/opencv.js"
+        onload="onOpenCvReady();"
+        onerror="onOpenCvError();"
+    ></script>
+
+    <!-- 13: Nuestro script principal con la lógica de procesamiento -->
+    <script src="jsOpenCv.js"></script>
+</body>
+</html>
