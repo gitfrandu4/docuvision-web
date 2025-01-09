@@ -25,6 +25,7 @@
     - [Objetivos Específicos](#objetivos-específicos)
   - [Descripción Técnica](#descripción-técnica)
     - [Desarrollo del Pipeline de Procesamiento en Python](#desarrollo-del-pipeline-de-procesamiento-en-python)
+    - [Pruebas de Concepto con OCR](#pruebas-de-concepto-con-ocr)
     - [Arquitectura del Sistema](#arquitectura-del-sistema)
     - [Tecnologías Implementadas](#tecnologías-implementadas)
   - [Fuentes y Tecnologías Utilizadas](#fuentes-y-tecnologías-utilizadas)
@@ -119,6 +120,18 @@ El pipeline desarrollado en Python incluye los siguientes pasos:
 Este desarrollo en Python sirvió como base para la implementación en JavaScript usando OpenCV.js, permitiendo una traducción directa de los conceptos y algoritmos probados.
 
 ![Proceso de transformación con OpenCV](assets/opencv.png)
+
+### Pruebas de Concepto con OCR
+
+Como parte del proceso de desarrollo, se realizaron pruebas de concepto con Tesseract para validar la calidad del reconocimiento de texto. Estas pruebas fueron cruciales para:
+
+1. **Evaluar la calidad del OCR**: Comprobar la precisión del reconocimiento en diferentes tipos de documentos y condiciones.
+2. **Optimizar el preprocesamiento**: Ajustar los parámetros de mejora de imagen para maximizar la precisión del OCR.
+3. **Validar la viabilidad**: Confirmar que Tesseract.js podría funcionar eficientemente en un entorno web.
+
+Las pruebas demostraron que la calidad del OCR mejora significativamente cuando se aplica el pipeline completo de procesamiento de imagen, especialmente después de la corrección de perspectiva y la binarización adaptativa.
+
+<img src="assets/ocr.png" alt="Pruebas de concepto con OCR" width="500">
 
 ### Arquitectura del Sistema
 
