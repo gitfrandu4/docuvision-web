@@ -262,7 +262,45 @@ Las siguientes gráficas muestran las métricas de rendimiento obtenidas durante
 
 ### Propuestas de Ampliación
 
-[Listar posibles mejoras o ampliaciones futuras]
+Dado el enfoque formativo de este proyecto en la asignatura de Visión por Computador, se identifican varias vías de expansión que podrían potenciar aún más la calidad y el alcance de la aplicación:
+
+1. **Modelos Nativos de TensorFlow.js**
+
+   - Entrenar y optimizar modelos diseñados específicamente para su ejecución con TensorFlow.js, aprovechando los últimos avances en arquitecturas ligeras (p. ej., MobileNet, EfficientNet) que brindan resultados competitivos con un menor consumo de recursos.
+   - Conservar la inferencia en el navegador sin depender de servidores externos, garantizando privacidad y reduciendo la latencia.
+
+2. **Aplicación Nativa para Móviles**
+
+   - Desarrollar una versión móvil (Android/iOS) que utilice la aceleración de hardware (GPU/TPU integradas) para operaciones de visión por computador, lo que mejoraría el rendimiento y la velocidad de inferencia respecto a la aplicación web.
+   - Incorporar reconocimiento de documentos en tiempo real desde la cámara, brindando una experiencia de usuario más fluida y sin pasos intermedios de carga o post-procesamiento.
+
+3. **Sistemas de Seguimiento de Movimientos y Estabilización**
+
+   - Integrar técnicas como la detección de puntos clave en OpenCV.js o TensorFlow.js para estimar la posición del teléfono o la mano, facilitando una estabilización previa antes de tomar la foto.
+   - Reducir imágenes borrosas o mal enfocadas, mejorando la calidad final de los documentos capturados.
+
+4. **Detección de Múltiples Páginas y Documentos Compuestos**
+
+   - Extender la lógica de detección para identificar varias páginas dentro de una sola foto (p. ej., al escanear un cuaderno o un documento grapado).
+   - Diseñar un pipeline que permita la segmentación de cada página, su corrección de perspectiva y la posterior combinación en un PDF multi-página.
+
+5. **Reconocimiento de Texto Avanzado (OCR + NLP)**
+
+   - Explorar el uso de modelos OCR más especializados o un pipeline de Procesamiento de Lenguaje Natural (NLP) para extraer información semántica (fechas, nombres, importes, etc.) de los documentos.
+   - Aplicar técnicas de etiquetado automático para organizar y clasificar documentos de manera inteligente.
+
+6. **Filtrado y Mejora Avanzada de la Imagen**
+
+   - Investigar nuevas técnicas de desenfoque selectivo, realce adaptativo de contraste o reducción de ruido basadas en deep learning (p. ej., redes U-Net) para mejorar la legibilidad de documentos.
+   - Incluir algoritmos de detección de sombras que puedan corregir y eliminar artefactos indeseados en la iluminación del documento.
+
+7. **Arquitecturas Más Livianas para Dispositivos Limitados**
+
+   - Desarrollar o adaptar modelos con arquitecturas de baja complejidad (Tiny YOLO, MobileNet, etc.) para su uso en dispositivos con menor capacidad de cómputo, asegurando la máxima accesibilidad.
+
+8. **Almacenamiento en la Nube y Colaboración**
+
+   - Integrar servicios de almacenamiento en la nube (Firebase, Amazon S3, etc.) para que varios usuarios puedan colaborar, anotar y consultar los documentos escaneados en tiempo real.
 
 <div class="page"/>
 
