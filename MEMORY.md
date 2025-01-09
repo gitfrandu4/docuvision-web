@@ -10,6 +10,7 @@
 **Enlaces Principales**
 
 🔗 **Repositorio Principal**: [https://github.com/gitfrandu4/docu-scan](https://github.com/gitfrandu4/docu-scan)
+
 🌐 **Despliegue**: [gitfrandu4.github.io/docu-scan/](https://gitfrandu4.github.io/docu-scan/)
 
 <div class="page"/>
