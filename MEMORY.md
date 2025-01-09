@@ -131,7 +131,7 @@ Como parte del proceso de desarrollo, se realizaron pruebas de concepto con Tess
 
 Las pruebas demostraron que la calidad del OCR mejora significativamente cuando se aplica el pipeline completo de procesamiento de imagen, especialmente después de la corrección de perspectiva y la binarización adaptativa.
 
-<img src="assets/ocr.png" alt="Pruebas de concepto con OCR" width="500">
+<img src="assets/ocr.jpg" alt="Pruebas de concepto con OCR" width="500">
 
 ### Arquitectura del Sistema
 
