@@ -9,12 +9,11 @@
 
 **Enlaces Principales**
 
-🔗 **Repositorio**: [https://github.com/gitfrandu4/docu-scan](https://github.com/gitfrandu4/docu-scan)  
+🔗 **Repositorio Principal**: [https://github.com/gitfrandu4/docu-scan](https://github.com/gitfrandu4/docu-scan)
+**Repositorio Secundario (Pequeñas POC)**:
 🌐 **Despliegue**: [gitfrandu4.github.io/docu-scan/](https://gitfrandu4.github.io/docu-scan/)
+**Video De Muestra**: 
 
-**Fecha de entrega**
-
-2025-01-09
 
 <div class="page"/>
 
