@@ -35,11 +35,8 @@
   - [Conclusiones y Propuestas de Ampliación](#conclusiones-y-propuestas-de-ampliación)
     - [Conclusiones](#conclusiones)
     - [Propuestas de Ampliación](#propuestas-de-ampliación)
-  - [Herramientas Deseadas](#herramientas-deseadas)
   - [Enlaces](#enlaces)
   - [Créditos](#créditos)
-  - [Anexos](#anexos)
-    - [Diario de Reuniones](#diario-de-reuniones)
 
 <div class="page"/>
 
@@ -256,7 +253,13 @@ Las siguientes gráficas muestran las métricas de rendimiento obtenidas durante
 
 ### Conclusiones
 
-[Describir las conclusiones del proyecto]
+Este proyecto demuestra la **viabilidad** de una aplicación web completamente enfocada en la digitalización de documentos, combinando **OpenCV.js** para correcciones de perspectiva y mejora de imágenes, **TensorFlow.js** con **YOLOv11** para la detección de documentos, y **Tesseract.js** para el OCR. A pesar de su solvencia, el desarrollo no estuvo exento de retos.
+
+En particular, la **exportación del modelo YOLOv11n** desde Ultralytics a TensorFlow.js resultó un desafío notable, principalmente debido a la **diferencia en los formatos de salida** y a la necesidad de gestionar coordenadas con dimensiones variables de imágenes. Fue imprescindible implementar post-procesamientos adicionales en JavaScript, así como establecer flujos de preprocesamiento y escalado de coordenadas para obtener bounding boxes correctamente localizadas.
+
+El **entrenamiento** con un dataset específico y la adaptación de técnicas de visión por computador a la ejecución en el navegador subrayan el potencial de estas tecnologías para soluciones que no dependan de servidores externos. Asimismo, se confirma que la detección y corrección de documentos es factible en entornos web, con resultados precisos y tiempos de inferencia razonables, especialmente gracias al backend **WebGL** de TensorFlow.js.
+
+En definitiva, el proyecto sienta las bases para aplicaciones que requieran un **procesamiento local** en el navegador, al mismo tiempo que evidencia la importancia de la optimización y la correcta gestión de modelos avanzados de visión por computador cuando se trasladan a entornos JavaScript.
 
 <div class="page"/>
 
@@ -304,10 +307,6 @@ Dado el enfoque formativo de este proyecto en la asignatura de Visión por Compu
 
 <div class="page"/>
 
-## Herramientas Deseadas
-
-[Indicar aquí las herramientas/tecnologías con las que les hubiera gustado contar]
-
 ## Enlaces
 
 - [Enlace al código fuente](https://github.com/gitfrandu4/docu-scan)
@@ -328,11 +327,3 @@ Dado el enfoque formativo de este proyecto en la asignatura de Visión por Compu
 
 - Dataset "Four Corners Detection" de Roboflow, utilizado para el entrenamiento del modelo de detección de documentos (material no original del grupo)
 - Implementación base del post-procesamiento de tensores YOLOv8 en TensorFlow.js por Wahyu Setianto
-
-<div class="page"/>
-
-## Anexos
-
-### Diario de Reuniones
-
-[Incluir aquí el diario de reuniones del grupo o enlazar al archivo específico]
