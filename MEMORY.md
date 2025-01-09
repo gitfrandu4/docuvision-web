@@ -2,11 +2,21 @@
 
 ![Imagen carátula del proyecto](assets/cover.png)
 
+**Autores**
+
+- Marcos Vázquez Tascón
+- Francisco Javier López-Dufour Morales
+
+**Fecha de entrega**
+
+2025-01-09
+
+<div class="page"/>
+
 ## Índice
 
 - [Aplicación Web de Escaneo de Documentos con Técnicas de Visión por Computador](#aplicación-web-de-escaneo-de-documentos-con-técnicas-de-visión-por-computador)
   - [Índice](#índice)
-  - [Autores](#autores)
   - [Motivación y Argumentación](#motivación-y-argumentación)
   - [Objetivo de la Propuesta](#objetivo-de-la-propuesta)
     - [Objetivo Principal](#objetivo-principal)
@@ -31,16 +41,22 @@
   - [Anexos](#anexos)
     - [Diario de Reuniones](#diario-de-reuniones)
 
-## Autores
-
-- Marcos Vázquez Tascón
-- Francisco Javier López-Dufour Morales
+<div class="page"/>
 
 ## Motivación y Argumentación
 
-El proyecto surge como respuesta a una necesidad real identificada en el sector del transporte: la mejora en la calidad de las fotografías de documentos tomadas por conductores. En la actualidad, muchas empresas de transporte requieren que sus conductores documenten diversos papeles durante sus rutas (albaranes, facturas, etc.), pero la calidad de estas capturas suele ser deficiente debido a condiciones variables de iluminación, ángulos inadecuados y otros factores ambientales.
+En una sociedad que avanza rápidamente hacia la **digitalización** de los procesos y la reducción de documentos físicos, contar con herramientas que faciliten la **captura, mejora y gestión de documentos** se ha convertido en una necesidad ineludible. Fotografiar o escanear documentos (contratos, recibos, facturas, informes, apuntes académicos, etc.) de forma rápida y fiable es un requisito no solo para las grandes empresas, sino también para usuarios individuales y pequeños negocios.
 
-La solución propuesta busca simplificar y optimizar este proceso mediante una aplicación web accesible, que implementa técnicas avanzadas de visión por computador para mejorar automáticamente la calidad de las imágenes capturadas.
+Los retos más comunes que se presentan en esta tarea son:
+	•	**Condiciones de iluminación y enfoque** inadecuadas, que degradan la calidad de las imágenes.
+	•	**Perspectivas erróneas** (folios doblados o torcidos) que impiden una correcta lectura o extracción de texto.
+	•	**Procesos de OCR** (Reconocimiento Óptico de Caracteres) que fallan cuando las imágenes no están suficientemente depuradas.
+
+Para dar respuesta a estos desafíos, este proyecto propone una **aplicación web** capaz de **escanear** y **procesar** automáticamente imágenes de documentos, brindando herramientas de corrección de perspectiva y mejoras en la calidad de la imagen. Gracias a la integración con librerías de **OCR**, el sistema también permite extraer texto de los documentos procesados, reduciendo significativamente el tiempo que se dedica a la introducción manual de datos. 
+
+Con esta solución, se busca satisfacer las demandas de un amplio abanico de usuarios y sectores: estudiantes que digitalizan apuntes, profesionales que organizan expedientes, familias que guardan sus facturas e incluso emprendedores que quieren gestionar facturas y recibos de manera ordenada y accesible. 
+
+<div class="page"/>
 
 ## Objetivo de la Propuesta
 
@@ -55,6 +71,8 @@ Desarrollar una aplicación web que permita el escaneo y procesamiento automáti
 - Integrar capacidades de OCR para la extracción de texto
 - Crear una interfaz web intuitiva y accesible
 - Asegurar el funcionamiento completo en el navegador sin necesidad de procesamiento en servidor
+
+<div class="page"/>
 
 ## Descripción Técnica
 
@@ -141,6 +159,8 @@ El proyecto se estructura en cuatro componentes principales:
 - `GitHub Actions` para integración y despliegue continuo
 - `GitHub Pages` como plataforma de hosting
 
+<div class="page"/>
+
 ## Fuentes y Tecnologías Utilizadas
 
 ### Software
@@ -161,6 +181,8 @@ El proyecto se estructura en cuatro componentes principales:
 - YOLOv11n convertido a formato TensorFlow.js
 - Implementación base del post-procesamiento de tensores basada en yolov8-tfjs
 - gh-pages para el despliegue automático a GitHub Pages
+
+<div class="page"/>
 
 ## Resultados
 
@@ -228,15 +250,21 @@ Las siguientes gráficas muestran las métricas de rendimiento obtenidas durante
 
 ![Ejemplo de detección de documento](assets/inference_example.png)
 
+<div class="page"/>
+
 ## Conclusiones y Propuestas de Ampliación
 
 ### Conclusiones
 
 [Describir las conclusiones del proyecto]
 
+<div class="page"/>
+
 ### Propuestas de Ampliación
 
 [Listar posibles mejoras o ampliaciones futuras]
+
+<div class="page"/>
 
 ## Herramientas Deseadas
 
@@ -256,17 +284,17 @@ Las siguientes gráficas muestran las métricas de rendimiento obtenidas durante
 - [Guía de Despliegue Estático de Vite](https://vitejs.dev/guide/static-deploy.html)
 - [Documentación de GitHub Actions](https://docs.github.com/en/actions)
 
+<div class="page"/>
+
 ## Créditos
 
 - Dataset "Four Corners Detection" de Roboflow, utilizado para el entrenamiento del modelo de detección de documentos (material no original del grupo)
 - Implementación base del post-procesamiento de tensores YOLOv8 en TensorFlow.js por Wahyu Setianto
+
+<div class="page"/>
 
 ## Anexos
 
 ### Diario de Reuniones
 
 [Incluir aquí el diario de reuniones del grupo o enlazar al archivo específico]
-
----
-
-_Proyecto desarrollado para la asignatura de Visión por Computador_
