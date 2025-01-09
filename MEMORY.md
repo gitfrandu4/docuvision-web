@@ -7,6 +7,11 @@
 - Marcos Vázquez Tascón
 - Francisco Javier López-Dufour Morales
 
+**Enlaces Principales**
+
+🔗 **Repositorio**: [https://github.com/gitfrandu4/docu-scan](https://github.com/gitfrandu4/docu-scan)  
+🌐 **Despliegue**: [gitfrandu4.github.io/docu-scan/](https://gitfrandu4.github.io/docu-scan/)
+
 **Fecha de entrega**
 
 2025-01-09
@@ -45,13 +50,13 @@
 En una sociedad que avanza rápidamente hacia la **digitalización** de los procesos y la reducción de documentos físicos, contar con herramientas que faciliten la **captura, mejora y gestión de documentos** se ha convertido en una necesidad ineludible. Fotografiar o escanear documentos (contratos, recibos, facturas, informes, apuntes académicos, etc.) de forma rápida y fiable es un requisito no solo para las grandes empresas, sino también para usuarios individuales y pequeños negocios.
 
 Los retos más comunes que se presentan en esta tarea son:
-	•	**Condiciones de iluminación y enfoque** inadecuadas, que degradan la calidad de las imágenes.
-	•	**Perspectivas erróneas** (folios doblados o torcidos) que impiden una correcta lectura o extracción de texto.
-	•	**Procesos de OCR** (Reconocimiento Óptico de Caracteres) que fallan cuando las imágenes no están suficientemente depuradas.
+• **Condiciones de iluminación y enfoque** inadecuadas, que degradan la calidad de las imágenes.
+• **Perspectivas erróneas** (folios doblados o torcidos) que impiden una correcta lectura o extracción de texto.
+• **Procesos de OCR** (Reconocimiento Óptico de Caracteres) que fallan cuando las imágenes no están suficientemente depuradas.
 
-Para dar respuesta a estos desafíos, este proyecto propone una **aplicación web** capaz de **escanear** y **procesar** automáticamente imágenes de documentos, brindando herramientas de corrección de perspectiva y mejoras en la calidad de la imagen. Gracias a la integración con librerías de **OCR**, el sistema también permite extraer texto de los documentos procesados, reduciendo significativamente el tiempo que se dedica a la introducción manual de datos. 
+Para dar respuesta a estos desafíos, este proyecto propone una **aplicación web** capaz de **escanear** y **procesar** automáticamente imágenes de documentos, brindando herramientas de corrección de perspectiva y mejoras en la calidad de la imagen. Gracias a la integración con librerías de **OCR**, el sistema también permite extraer texto de los documentos procesados, reduciendo significativamente el tiempo que se dedica a la introducción manual de datos.
 
-Con esta solución, se busca satisfacer las demandas de un amplio abanico de usuarios y sectores: estudiantes que digitalizan apuntes, profesionales que organizan expedientes, familias que guardan sus facturas e incluso emprendedores que quieren gestionar facturas y recibos de manera ordenada y accesible. 
+Con esta solución, se busca satisfacer las demandas de un amplio abanico de usuarios y sectores: estudiantes que digitalizan apuntes, profesionales que organizan expedientes, familias que guardan sus facturas e incluso emprendedores que quieren gestionar facturas y recibos de manera ordenada y accesible.
 
 <div class="page"/>
 
