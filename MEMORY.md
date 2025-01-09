@@ -24,6 +24,7 @@
     - [Objetivo Principal](#objetivo-principal)
     - [Objetivos Específicos](#objetivos-específicos)
   - [Descripción Técnica](#descripción-técnica)
+    - [Desarrollo del Pipeline de Procesamiento en Python](#desarrollo-del-pipeline-de-procesamiento-en-python)
     - [Arquitectura del Sistema](#arquitectura-del-sistema)
     - [Tecnologías Implementadas](#tecnologías-implementadas)
   - [Fuentes y Tecnologías Utilizadas](#fuentes-y-tecnologías-utilizadas)
@@ -75,6 +76,49 @@ Desarrollar una aplicación web que permita el escaneo y procesamiento automáti
 <div class="page"/>
 
 ## Descripción Técnica
+
+### Desarrollo del Pipeline de Procesamiento en Python
+
+Como paso previo al desarrollo de la aplicación web, se implementó un pipeline de procesamiento de imágenes en Python utilizando OpenCV. Este desarrollo permitió:
+
+1. **Validar el enfoque técnico**: Experimentar con diferentes técnicas de procesamiento de imágenes y ajustar parámetros.
+2. **Optimizar el flujo de trabajo**: Definir una secuencia clara de pasos para el procesamiento.
+3. **Identificar desafíos**: Anticipar problemas potenciales en la implementación web.
+
+El pipeline desarrollado en Python incluye los siguientes pasos:
+
+1. **Preprocesamiento**:
+
+   - Redimensionamiento de la imagen manteniendo la proporción
+   - Conversión a escala de grises
+   - Aplicación de desenfoque gaussiano para reducir ruido
+
+2. **Detección de Bordes y Contornos**:
+
+   - Operaciones morfológicas (cierre) para mejorar la continuidad de bordes
+   - Detección de bordes usando Canny
+   - Búsqueda y filtrado de contornos
+
+3. **Identificación del Documento**:
+
+   - Aproximación de contornos a polígonos
+   - Validación de contornos (4 puntos, área mínima)
+   - Forzado a 4 puntos si es necesario
+
+4. **Transformación de Perspectiva**:
+
+   - Ordenamiento de puntos (superior-izquierda, superior-derecha, etc.)
+   - Cálculo de dimensiones del documento enderezado
+   - Aplicación de transformación de perspectiva
+
+5. **Mejora Final**:
+   - Ecualización del histograma
+   - Umbralización adaptativa para binarización
+   - Ajustes de nitidez
+
+Este desarrollo en Python sirvió como base para la implementación en JavaScript usando OpenCV.js, permitiendo una traducción directa de los conceptos y algoritmos probados.
+
+![Proceso de transformación con OpenCV](assets/opencv.png)
 
 ### Arquitectura del Sistema
 
