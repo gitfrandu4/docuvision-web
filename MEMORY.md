@@ -38,7 +38,7 @@
 
 ## Motivación y Argumentación
 
-El proyecto surge como respuesta a una necesidad real identificada en el sector del transporte: la mejora en la calidad de las fotografías de documentos tomadas por conductores. En la actualidad, muchas empresas de transporte requieren que sus conductores documenten diversos papeles durante sus rutas, pero la calidad de estas capturas suele ser deficiente debido a condiciones variables de iluminación, ángulos inadecuados y otros factores ambientales.
+El proyecto surge como respuesta a una necesidad real identificada en el sector del transporte: la mejora en la calidad de las fotografías de documentos tomadas por conductores. En la actualidad, muchas empresas de transporte requieren que sus conductores documenten diversos papeles durante sus rutas (albaranes, facturas, etc.), pero la calidad de estas capturas suele ser deficiente debido a condiciones variables de iluminación, ángulos inadecuados y otros factores ambientales.
 
 La solución propuesta busca simplificar y optimizar este proceso mediante una aplicación web accesible, que implementa técnicas avanzadas de visión por computador para mejorar automáticamente la calidad de las imágenes capturadas.
 
@@ -50,7 +50,7 @@ Desarrollar una aplicación web que permita el escaneo y procesamiento automáti
 
 ### Objetivos Específicos
 
-- Implementar un sistema de detección automática de documentos utilizando modelos YOLO
+- Implementar un sistema de detección automática de documentos utilizando modelos YOLOv11
 - Desarrollar algoritmos de corrección de perspectiva y mejora de imagen
 - Integrar capacidades de OCR para la extracción de texto
 - Crear una interfaz web intuitiva y accesible
